@@ -1,6 +1,5 @@
 package tests;
 
-import com.tasks.model.QueryResponse;
 import com.tasks.model.TodoInstance;
 import com.tasks.service.SearchService;
 

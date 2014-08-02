@@ -1,6 +1,5 @@
 package com.tasks.service;
 
-import com.tasks.model.QueryResponse;
 import com.tasks.model.ToDoResponse;
 import com.tasks.model.TodoInstance;
 import io.searchbox.action.BulkableAction;
@@ -11,22 +10,9 @@ import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.indices.CreateIndex;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.FilterBuilders;
-import org.elasticsearch.index.query.FilteredQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.node.Node;
-import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-
-import static org.elasticsearch.node.NodeBuilder.*;
-
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -145,29 +131,4 @@ public class SearchService {
         return new ArrayList<TodoInstance>();
     }
 
-    public List<QueryResponse> deprecatedSearchToDoTitle(String toDoQuery) {
-        try {
-            Node node = nodeBuilder().node();
-            Client client = node.client();
-           // Client client = (Client) jestClient;
-            QueryBuilder multiMatch = multiMatchQuery(toDoQuery, "title^3", "body");  // <!-- I wanted to use this one!
-            System.out.println(multiMatch.toString());
-            SearchResponse response = client.prepareSearch("todos")
-                    .setQuery(multiMatch)
-                    .execute().actionGet();
-            if (response.getHits().getTotalHits()>0){
-                List<QueryResponse> responses = new ArrayList<QueryResponse>();
-                for (SearchHit hit:response.getHits()){
-                    QueryResponse qr = new QueryResponse(hit.getId(), hit.getType(), hit.getSource().toString());
-                    responses.add(qr);
-                }
-                return responses;
-
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

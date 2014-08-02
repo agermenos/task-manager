@@ -54,7 +54,7 @@ public class ToDoService {
     }
 
     public List<TodoInstance> getToDoByTitle(String title){
-        List todos = null;
+        List<TodoInstance> todos;
         ToDoDao toDoDao= new ToDoDao();
         if (title.toLowerCase().equals("all")) {
             todos = toDoDao.getAll();
