@@ -43,8 +43,5 @@ URL | Http Method | Function
             "done" false
         }
 
-###Thanks
-Mash Ape, for giving me the opportunity to build this service. I learned a lot with this, and more important, I had a lot of fun!!
-<br>
 #### *Alejandro Germenos*
 ####7/30/2014
